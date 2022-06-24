@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+ <style>
+*{  
+  margin:0;
+  padding:0;
+}
+body{
+  
+  background-color:#f0f0f0;
+  font-family:helvetica;
+}
+#bg{
+  position:relative;
+  top:13%;
+  height:800px;
+  width:1000px;
+  background-color: black;
+  background-size:cover;
+  margin-left:auto;
+  margin-right:auto; 
+  border:#fff 15px solid;
+
+
+
+
+}
+.module{
+  position:relative;
+  top:15%;    
+  height:70%;
+  width:450px;
+  margin-left:auto;
+  margin-right:auto;
+  border-radius:5px;
+  background:RGBA(255,255,255,1);
+    
+  -webkit-box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);        
+  box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+  
+}
+.head{
+    text-align: center;
+    padding-top: 15px;
+}
+
+
+
+    </style>
+</head>
+<body>
+   {{>sidebar}}
+
+<div id="bg">
+  <div class="module">
+    <h1 class="head">Total Number of Car Registers</h1>
+    <div class="head" id="count"></div>
+    
+    
+  </div>
+</div>
+		
+<script>
+  const getTotalCars = async () => {
+  const response = await fetch('http://localhost:1500/dashboards');
+  const myJson = await response.json(); //extract JSON from the http response
+  console.log('response', myJson);
+  const totalCars = myJson.totalCars;
+  
+  const countDiv = document.getElementById("count");
+  const heading = document.createElement("h2");
+  heading.innerHTML = totalCars;
+  countDiv.appendChild(heading);
+}
+document.addEventListener("DOMContentLoaded", function() {
+  getTotalCars();
+})
+</script>
+    
+</body>
+</html>
